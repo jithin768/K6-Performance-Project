@@ -32,7 +32,6 @@ jobs:
 
       - name: Run smoke test
         run: k6 run tests/smoke-test.js
-        working-directory: k6-performance-project
         env:
           BASE_URL: ${{ vars.BASE_URL || 'https://www.saucedemo.com' }}
 
@@ -41,7 +40,7 @@ jobs:
         if: always()
         with:
           name: smoke-report
-          path: k6-performance-project/reports/smoke-report.html
+          path: reports/smoke-report.html
 
   load-test:
     name: Load Test
@@ -57,7 +56,6 @@ jobs:
 
       - name: Run load test
         run: k6 run tests/load-test.js
-        working-directory: k6-performance-project
         env:
           BASE_URL: ${{ vars.BASE_URL || 'https://www.saucedemo.com' }}
 
@@ -66,7 +64,7 @@ jobs:
         if: always()
         with:
           name: load-report
-          path: k6-performance-project/reports/load-report.html
+          path: reports/load-report.html
 
   stress-test:
     name: Stress Test
@@ -82,7 +80,6 @@ jobs:
 
       - name: Run stress test
         run: k6 run tests/stress-test.js
-        working-directory: k6-performance-project
         env:
           BASE_URL: ${{ vars.BASE_URL || 'https://www.saucedemo.com' }}
 
@@ -91,4 +88,4 @@ jobs:
         if: always()
         with:
           name: stress-report
-          path: k6-performance-project/reports/stress-report.html
+          path: reports/stress-report.html

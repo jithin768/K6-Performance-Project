@@ -25,14 +25,10 @@ export default function () {
 
   sleep(1);
 
-  group('Smoke – Login', function () {
-    const payload = {
-      user_name: 'standard_user',
-      password: 'secret_sauce',
-    };
-    const res = http.post(`${BASE_URL}/`, payload);
+  group('Smoke – Inventory Page', function () {
+    const res = http.get(`${BASE_URL}/inventory.html`);
     check(res, {
-      'login responded 200': (r) => r.status === 200,
+      'status is 200': (r) => r.status === 200,
     });
   });
 

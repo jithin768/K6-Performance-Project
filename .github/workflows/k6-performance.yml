@@ -1,0 +1,94 @@
+name: K6 Performance Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      test_type:
+        description: 'Test type to run'
+        required: true
+        default: 'smoke'
+        type: choice
+        options:
+          - smoke
+          - load
+          - stress
+
+jobs:
+  smoke-test:
+    name: Smoke Test
+    runs-on: ubuntu-latest
+    if: github.event_name != 'workflow_dispatch' || github.event.inputs.test_type == 'smoke'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up k6
+        uses: grafana/setup-k6-action@v1
+
+      - name: Run smoke test
+        run: k6 run tests/smoke-test.js
+        working-directory: k6-performance-project
+        env:
+          BASE_URL: ${{ vars.BASE_URL || 'https://www.saucedemo.com' }}
+
+      - name: Upload smoke report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smoke-report
+          path: k6-performance-project/reports/smoke-report.html
+
+  load-test:
+    name: Load Test
+    runs-on: ubuntu-latest
+    if: github.event.inputs.test_type == 'load'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up k6
+        uses: grafana/setup-k6-action@v1
+
+      - name: Run load test
+        run: k6 run tests/load-test.js
+        working-directory: k6-performance-project
+        env:
+          BASE_URL: ${{ vars.BASE_URL || 'https://www.saucedemo.com' }}
+
+      - name: Upload load report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: load-report
+          path: k6-performance-project/reports/load-report.html
+
+  stress-test:
+    name: Stress Test
+    runs-on: ubuntu-latest
+    if: github.event.inputs.test_type == 'stress'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up k6
+        uses: grafana/setup-k6-action@v1
+
+      - name: Run stress test
+        run: k6 run tests/stress-test.js
+        working-directory: k6-performance-project
+        env:
+          BASE_URL: ${{ vars.BASE_URL || 'https://www.saucedemo.com' }}
+
+      - name: Upload stress report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: stress-report
+          path: k6-performance-project/reports/stress-report.html

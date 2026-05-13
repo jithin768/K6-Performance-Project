@@ -1,0 +1,10 @@
+# Generated HTML reports
+reports/*.html
+
+# k6 output files
+*.json
+*.xml
+
+# OS files
+.DS_Store
+Thumbs.db

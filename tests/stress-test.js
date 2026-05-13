@@ -3,6 +3,7 @@ import { sleep, check, group } from 'k6';
 import { htmlReport } from 'https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js';
 
 const BASE_URL = __ENV.BASE_URL || 'https://www.saucedemo.com';
+const REPORT_DIR = __ENV.REPORT_DIR || '../reports';
 
 export const options = {
   stages: [
@@ -50,6 +51,6 @@ export default function () {
 
 export function handleSummary(data) {
   return {
-    'reports/stress-report.html': htmlReport(data),
+    [`${REPORT_DIR}/stress-report.html`]: htmlReport(data),
   };
 }

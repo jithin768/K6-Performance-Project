@@ -37,6 +37,7 @@ jobs:
         run: k6 run tests/smoke-test.js
         env:
           BASE_URL: ${{ vars.BASE_URL || 'https://www.saucedemo.com' }}
+          REPORT_DIR: reports
 
       - name: Upload smoke report
         uses: actions/upload-artifact@v5
@@ -64,6 +65,7 @@ jobs:
         run: k6 run tests/load-test.js
         env:
           BASE_URL: ${{ vars.BASE_URL || 'https://www.saucedemo.com' }}
+          REPORT_DIR: reports
 
       - name: Upload load report
         uses: actions/upload-artifact@v5
@@ -91,6 +93,7 @@ jobs:
         run: k6 run tests/stress-test.js
         env:
           BASE_URL: ${{ vars.BASE_URL || 'https://www.saucedemo.com' }}
+          REPORT_DIR: reports
 
       - name: Upload stress report
         uses: actions/upload-artifact@v5

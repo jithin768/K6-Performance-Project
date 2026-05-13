@@ -5,6 +5,7 @@ import papaparse from 'https://jslib.k6.io/papaparse/5.1.1/index.js';
 import { htmlReport } from 'https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js';
 
 const BASE_URL = __ENV.BASE_URL || 'https://www.saucedemo.com';
+const REPORT_DIR = __ENV.REPORT_DIR || '../reports';
 
 const users = new SharedArray('users', function () {
   return papaparse.parse(open('../data/users.csv'), { header: true }).data;
@@ -54,6 +55,6 @@ export default function () {
 
 export function handleSummary(data) {
   return {
-    'reports/load-report.html': htmlReport(data),
+    [`${REPORT_DIR}/load-report.html`]: htmlReport(data),
   };
 }

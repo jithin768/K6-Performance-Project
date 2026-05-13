@@ -62,4 +62,4 @@ HTML reports are generated automatically in the `reports/` folder after each run
 
 ## CI/CD
 
-The GitHub Actions workflow (`.github/workflows/k6-performance.yml`) runs automatically on push/PR to `main`. You can also trigger specific test types manually via **Actions → K6 Performance Tests → Run workflow**..
+The GitHub Actions workflow (`.github/workflows/k6-performance.yml`) runs automatically on push/PR to `main`. You can also trigger specific test types manually via **Actions → K6 Performance Tests → Run workflow**.

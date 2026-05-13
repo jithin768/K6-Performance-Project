@@ -50,6 +50,6 @@ export default function () {
 
 export function handleSummary(data) {
   return {
-    '../reports/stress-report.html': htmlReport(data),
+    'reports/stress-report.html': htmlReport(data),
   };
 }

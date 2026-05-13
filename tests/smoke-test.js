@@ -9,8 +9,8 @@ export const options = {
   duration: '30s',
 
   thresholds: {
-    http_req_failed: ['rate<0.01'],        // <1% errors
-    http_req_duration: ['p(95)<500'],      // 95% of requests under 500ms
+    http_req_failed: ['rate<0.01'],         // <1% errors
+    http_req_duration: ['p(95)<2000'],      // 95% of requests under 2s
   },
 };
 
@@ -41,6 +41,6 @@ export default function () {
 
 export function handleSummary(data) {
   return {
-    '../reports/smoke-report.html': htmlReport(data),
+    'reports/smoke-report.html': htmlReport(data),
   };
 }

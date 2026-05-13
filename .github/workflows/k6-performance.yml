@@ -25,10 +25,13 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up k6
         uses: grafana/setup-k6-action@v1
+
+      - name: Create reports directory
+        run: mkdir -p reports
 
       - name: Run smoke test
         run: k6 run tests/smoke-test.js
@@ -36,7 +39,7 @@ jobs:
           BASE_URL: ${{ vars.BASE_URL || 'https://www.saucedemo.com' }}
 
       - name: Upload smoke report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         if: always()
         with:
           name: smoke-report
@@ -49,10 +52,13 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up k6
         uses: grafana/setup-k6-action@v1
+
+      - name: Create reports directory
+        run: mkdir -p reports
 
       - name: Run load test
         run: k6 run tests/load-test.js
@@ -60,7 +66,7 @@ jobs:
           BASE_URL: ${{ vars.BASE_URL || 'https://www.saucedemo.com' }}
 
       - name: Upload load report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         if: always()
         with:
           name: load-report
@@ -73,10 +79,13 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up k6
         uses: grafana/setup-k6-action@v1
+
+      - name: Create reports directory
+        run: mkdir -p reports
 
       - name: Run stress test
         run: k6 run tests/stress-test.js
@@ -84,7 +93,7 @@ jobs:
           BASE_URL: ${{ vars.BASE_URL || 'https://www.saucedemo.com' }}
 
       - name: Upload stress report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         if: always()
         with:
           name: stress-report
